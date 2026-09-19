@@ -1,9 +1,9 @@
 import json
+import logging
 
 import discord
-from discord import Status
 from discord.ext import commands
-import logging
+from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
 import os
 
@@ -13,7 +13,8 @@ with open("database.json", "r") as file:
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler = RotatingFileHandler(filename='discord.log', encoding='utf-8', maxBytes=5*1024*1024, backupCount=1)
+handler.setLevel(logging.INFO)
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True

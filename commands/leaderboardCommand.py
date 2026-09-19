@@ -34,7 +34,7 @@ class LeaderboardCommand(commands.Cog):
         embed = discord.Embed(colour=Colour.purple(), title="Chicken Leaderboard")
         for rank, (user_id, stats) in enumerate(leaderboard, start=1):
             chicken = stats["chicken"]
-            user_name = self.bot.get_user(int(user_id)).global_name
+            user_name = self.bot.fetch_user(int(user_id)).global_name
             embed.add_field(name=f"{rank}. {user_name}", value=f"```\n🐔: {chicken}\n```", inline=False)
         await interaction.followup.send(embed=embed)
 
@@ -47,7 +47,7 @@ class LeaderboardCommand(commands.Cog):
         for rank, (user_id, stats) in enumerate(leaderboard, start=1):
             xp = stats["msgs"]["xp"]
             level = get_level(user_id, data)
-            user_name = self.bot.get_user(int(user_id)).global_name
+            user_name = self.bot.fetch_user(int(user_id)).global_name
             embed.add_field(name=f"{rank}. {user_name}", value=f"```\nLevel: {level} | XP: {xp}\n```", inline=False)
         await interaction.followup.send(embed=embed)
 
@@ -59,7 +59,7 @@ class LeaderboardCommand(commands.Cog):
         embed = discord.Embed(colour=Colour.purple(), title="Message Leaderboard")
         for rank, (user_id, stats) in enumerate(leaderboard, start=1):
             count = stats["msgs"]["count"]
-            user_name = self.bot.get_user(int(user_id)).global_name
+            user_name = self.bot.fetch_user(int(user_id)).global_name
             embed.add_field(name=f"{rank}. {user_name}", value=f"```\nMessages: {count}\n```", inline=False)
         await interaction.followup.send(embed=embed)
 
