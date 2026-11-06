@@ -45,7 +45,7 @@ class ReminderCommand(commands.Cog):
     @tasks.loop(minutes=1)
     async def check_reminders(self):
         data = self.bot.data
-        for iso in data["reminders"]:
+        for iso in list(data["reminders"]):
             now = datetime.now()
             then = datetime.fromisoformat(iso)
             if then <= now:
@@ -55,8 +55,8 @@ class ReminderCommand(commands.Cog):
                 embed = discord.Embed(colour=Colour.purple(), title="Reminder", description=msg, timestamp=og_time)
                 await user.send(embed=embed)
                 del data["reminders"][iso]
-                with open("database.json", "w") as filee:
-                    json.dump(data, filee, indent=4)
+        with open("database.json", "w") as filee:
+            json.dump(data, filee, indent=4)
 
 
 

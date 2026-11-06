@@ -30,7 +30,7 @@ class LyricReactionSystem(commands.Cog):
             artist = song.split(" - ")[1]
 
             if " " + title + " " in message.content.lower() or message.content.lower().startswith(title + " ") or message.content.lower().endswith(" " + title) or message.content.lower() == title:
-                token = "83lKwQdp5pfGc3e2o7PdOFvsAmKngN583fZY3eWtxcEVLH3Rm4eswujKYElmNm8b"
+                token = "at1fUZ1YzeNsfr5rlv-Gk4uLJHxzCFIGfy7R8kmgVLPi3S-kxHSfaZB6i3eA-QWk"
                 genius = lyricsgenius.Genius(token)
                 genius.remove_section_headers = True
                 lines = genius.search_song(title, artist).lyrics.split("\n")
