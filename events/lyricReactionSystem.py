@@ -1,17 +1,6 @@
 import random
-
 import discord
-import lyricsgenius
-
 from discord.ext import commands
-
-def get_line_index(lines, length):
-    rand = random.randrange(0, length)
-    if lines[rand] == "" or lines[rand] == ")" or lines[rand] == "(":
-        lines.pop(rand)
-        return get_line_index(lines, length - 1)
-    else:
-        return rand
 
 class LyricReactionSystem(commands.Cog):
     def __init__(self, bot):
@@ -23,18 +12,13 @@ class LyricReactionSystem(commands.Cog):
             return
         if message.guild is None:
             return
-        data = self.bot.data
-        songs = data["songs"]
-        for song in songs:
+        lyrics = self.bot.lyrics
+        for song in lyrics:
             title = song.split(" - ")[0]
-            artist = song.split(" - ")[1]
 
             if " " + title + " " in message.content.lower() or message.content.lower().startswith(title + " ") or message.content.lower().endswith(" " + title) or message.content.lower() == title:
-                token = "at1fUZ1YzeNsfr5rlv-Gk4uLJHxzCFIGfy7R8kmgVLPi3S-kxHSfaZB6i3eA-QWk"
-                genius = lyricsgenius.Genius(token)
-                genius.remove_section_headers = True
-                lines = genius.search_song(title, artist).lyrics.split("\n")
-                line_index = get_line_index(lines, len(lines))
+                lines = lyrics[song]
+                line_index = random.randrange(0, len(lines))
                 await message.channel.send(lines[line_index])
                 await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=title))
 

@@ -9,6 +9,8 @@ import os
 
 with open("database.json", "r") as file:
     data = json.load(file)
+with open("lyrics.json", "r") as file2:
+    lyrics = json.load(file)
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -22,13 +24,14 @@ intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents, activity=discord.Activity(type=discord.ActivityType.listening, name="Dead Man Walking"))
 tree = bot.tree
 bot.data = data
+bot.lyrics = lyrics
 
 async def my_setup():
     await bot.load_extension("events.backupSystem")
     await bot.load_extension("events.counterSystem")
     await bot.load_extension("events.submissionSystem")
     await bot.load_extension("events.reviewRatingSystem")
-    #await bot.load_extension("events.lyricReactionSystem")
+    await bot.load_extension("events.lyricReactionSystem")
     await bot.load_extension("commands.endCommand")
     await bot.load_extension("commands.leaderboardCommand")
     await bot.load_extension("commands.levelCommand")
