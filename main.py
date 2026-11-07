@@ -10,7 +10,7 @@ import os
 with open("database.json", "r") as file:
     data = json.load(file)
 with open("lyrics.json", "r") as file2:
-    lyrics = json.load(file)
+    lyrics = json.load(file2)
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
